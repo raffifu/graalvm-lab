@@ -20,6 +20,7 @@
     <micronaut.version>3.4.2</micronaut.version>
     <exec.mainClass>com.example.Application</exec.mainClass>
     <micronaut.runtime>netty</micronaut.runtime>
+    <native.maven.plugin.version>0.9.11</native.maven.plugin.version>
   </properties>
 
   <repositories>
@@ -87,7 +88,35 @@
     </dependency>
   </dependencies>
 
+  <profiles>
+    <profile>
+      <id>native</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.graalvm.buildtools</groupId>
+            <artifactId>native-maven-plugin</artifactId>
+            <version>${native.maven.plugin.version}</version>
+            <extensions>true</extensions>
+            <executions>
+              <execution>
+                <id>build-native</id>
+                <goals>
+                  <goal>build</goal>
+                </goals>
+                <phase>package</phase>
+              </execution>
+            </executions>
+            <configuration>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
   <build>
+    <finalName>${project.name}</finalName>
     <plugins>
       <plugin>
         <groupId>io.micronaut.build</groupId>
