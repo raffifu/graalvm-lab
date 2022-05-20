@@ -1,0 +1,7 @@
+FROM ghcr.io/graalvm/native-image:ol8-java11 as build
+COPY . .
+RUN chmod +x mvnw && ./mvnw -DskipTests -Pnative package
+
+FROM frolvlad/alpine-glibc:alpine-3.15
+COPY --from=build /target/random-pokemon app
+ENTRYPOINT ["/app"]

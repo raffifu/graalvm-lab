@@ -1,0 +1,4 @@
+FROM maven:3-openjdk-11-slim
+COPY . .
+RUN mvn -DskipTests clean package
+ENTRYPOINT ["java", "-jar", "target/random-pokemon.jar"]

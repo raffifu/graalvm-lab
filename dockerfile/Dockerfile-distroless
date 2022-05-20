@@ -1,0 +1,7 @@
+FROM maven:3-openjdk-11-slim as build
+COPY . .
+RUN mvn -DskipTests clean package
+
+FROM gcr.io/distroless/java
+COPY --from=build /target/random-pokemon.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
