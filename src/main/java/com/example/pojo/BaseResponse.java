@@ -1,7 +1,10 @@
 package com.example.pojo;
 
+import io.micronaut.core.annotation.Introspected;
+
 import java.time.Instant;
 
+@Introspected
 public class BaseResponse<T> {
     Integer status;
     String timestamp;
